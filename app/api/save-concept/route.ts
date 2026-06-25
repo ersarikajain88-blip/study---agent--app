@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   try {
     const { data, error } = await supabase
       .from('concepts')
-      .upsert([row], { onConflict: ['subject', 'concept'] });
+      .upsert([row], { onConflict: 'subject,concept' });
 
     if (error) {
       console.error('Supabase upsert error:', error);

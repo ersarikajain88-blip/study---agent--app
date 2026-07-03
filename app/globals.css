@@ -24,3 +24,209 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Animal theme: playful palette and repeating SVG pattern */
+.animal-theme {
+  --background: #08131a;
+  --foreground: #f8f9fa;
+  --accent-1: #ffd166;
+  --accent-2: #06d6a0;
+  --accent-3: #118ab2;
+}
+
+.animal-theme body,
+body.animal-theme {
+  background-color: var(--background);
+  color: var(--foreground);
+  background-image: url('/animal-pattern.svg'), linear-gradient(180deg, rgba(3,7,18,0.6), rgba(8,19,26,0.9));
+  background-repeat: repeat, no-repeat;
+  background-size: 220px 220px, cover;
+}
+
+/* Small UI tweaks for friendly look */
+.animal-theme a {
+  color: var(--accent-2);
+}
+
+.animal-theme .header {
+  background: linear-gradient(90deg, rgba(0,0,0,0.25), rgba(0,0,0,0.05));
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+}
+
+/* Typography refinements */
+:root {
+  --font-sans-stack: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --content-width: 1100px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-geist-sans), var(--font-sans-stack);
+  line-height: 1.15;
+}
+
+/* Card component */
+.card {
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms;
+  border: 1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(2,6,23,0.6);
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card, .header, .animal-theme * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Chat-specific pattern + message bubble styles */
+.chat-main {
+  background-color: #111931;
+  background-image: linear-gradient(135deg, rgba(255, 242, 255, 0.12), rgba(214, 231, 255, 0.12)), url('/animal-pattern-colorful.svg');
+  background-repeat: repeat;
+  background-position: center top, center top;
+  background-size: 220px 220px, 220px 220px;
+  background-blend-mode: screen;
+}
+
+.chat-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(236, 240, 255, 0.06));
+  pointer-events: none;
+}
+
+.chat-decorations {
+  position: absolute;
+  inset: 0;
+}
+
+.chat-shape {
+  position: absolute;
+  border-radius: 999px;
+  opacity: 0.78;
+  filter: blur(0.8px);
+  mix-blend-mode: screen;
+  animation: float 12s ease-in-out infinite;
+}
+
+.chat-shape.shape-1 {
+  width: 72px;
+  height: 72px;
+  background: radial-gradient(circle, rgba(255, 209, 220, 0.88) 0%, rgba(255, 183, 213, 0.38) 70%);
+  top: 8%;
+  left: 10%;
+  animation-duration: 14s;
+}
+
+.chat-shape.shape-2 {
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle, rgba(209, 233, 255, 0.88) 0%, rgba(165, 196, 255, 0.45) 70%);
+  top: 35%;
+  right: 12%;
+  animation-duration: 10s;
+  animation-delay: 2s;
+}
+
+.chat-shape.shape-3 {
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(circle, rgba(235, 247, 227, 0.88) 0%, rgba(181, 234, 201, 0.42) 70%);
+  bottom: 16%;
+  left: 22%;
+  animation-duration: 16s;
+  animation-delay: 1s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+  25% { transform: translateY(-10px) translateX(6px) scale(1.04); }
+  50% { transform: translateY(-18px) translateX(-8px) scale(1.02); }
+  75% { transform: translateY(-10px) translateX(8px) scale(1.03); }
+}
+
+.bubble-pop {
+  animation: bubble-rise 5s ease-in-out infinite;
+  cursor: pointer;
+}
+
+@keyframes bubble-rise {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-16px) scale(1.02); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-bubble {
+  border-radius: 18px;
+  padding: 0.9rem 1rem;
+  max-width: 80%;
+  position: relative;
+  backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 12px 30px rgba(9, 20, 40, 0.18);
+}
+
+.message-bubble.user {
+  background: linear-gradient(135deg, rgba(254, 234, 241, 0.94), rgba(255, 247, 237, 0.94));
+  color: #5b2140;
+  animation: bubble-float 6s ease-in-out infinite;
+}
+
+.message-bubble.assistant {
+  background: linear-gradient(135deg, rgba(230, 244, 255, 0.96), rgba(242, 235, 255, 0.95));
+  color: #102244;
+}
+
+@keyframes bubble-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.message-bubble.user::after,
+.message-bubble.assistant::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.message-bubble.user::after {
+  background: rgba(255, 150, 184, 0.7);
+  bottom: 8px;
+  right: -5px;
+}
+
+.message-bubble.assistant::after {
+  background: rgba(164, 196, 255, 0.7);
+  bottom: 8px;
+  left: -5px;
+}
+
+/* ensure main stacking context for the pseudo-overlay */
+.chat-main.relative { position: relative; }
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .paw{fill:#ffd166;opacity:0.95}
+      .cat{fill:#06d6a0;opacity:0.95}
+      .bird{fill:#118ab2;opacity:0.95}
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="transparent"/>
+  <!-- paw print -->
+  <g transform="translate(30,30)">
+    <circle class="paw" cx="12" cy="12" r="6"/>
+    <circle class="paw" cx="28" cy="8" r="5"/>
+    <circle class="paw" cx="8" cy="8" r="5"/>
+    <ellipse class="paw" cx="18" cy="26" rx="10" ry="6"/>
+  </g>
+  <!-- cat face -->
+  <g transform="translate(120,40) scale(0.9)">
+    <circle class="cat" cx="18" cy="18" r="14"/>
+    <polygon class="cat" points="6,12 2,4 14,8"/>
+    <polygon class="cat" points="30,12 36,4 24,8"/>
+    <circle fill="#073b4c" cx="14" cy="18" r="2"/>
+    <circle fill="#073b4c" cx="22" cy="18" r="2"/>
+  </g>
+  <!-- bird silhouette -->
+  <g transform="translate(70,120) scale(1)">
+    <path class="bird" d="M10 30 C20 10, 60 10, 70 30 C80 50, 40 60, 10 30 Z"/>
+  </g>
+</svg>

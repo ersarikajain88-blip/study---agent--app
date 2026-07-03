@@ -16,6 +16,9 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
+  const [bubbleText, setBubbleText] = useState('');
+  const [showBubble, setShowBubble] = useState(false);
+  const [bubblePopped, setBubblePopped] = useState(false);
   const listRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -30,6 +33,9 @@ export default function Home() {
     if (!input.trim()) return;
     const text = input.trim();
     setInput('');
+    setBubbleText(text || 'Hey, how are you?');
+    setShowBubble(true);
+    setBubblePopped(false);
 
     const userMsg: Message = { id: String(Date.now()) + '-u', role: 'user', content: text };
     appendMessage(userMsg);
@@ -153,26 +159,58 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-zinc-100 font-sans">
-      <nav className="border-b border-zinc-800 bg-zinc-950/95">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.15),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(236,72,153,0.15),_transparent_30%),linear-gradient(180deg,#020617,#0f172a)] text-zinc-100 font-sans">
+      <nav className="border-b border-white/10 bg-slate-950/70 backdrop-blur-xl shadow-sm shadow-slate-950/40">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <div className="text-lg font-semibold text-white">Study Agent</div>
-          <div className="flex gap-3 text-sm text-zinc-300">
-            <Link href="/" className="rounded-full px-3 py-1 hover:bg-zinc-800 hover:text-white">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-cyan-300/80">Study Agent</p>
+            <div className="text-lg font-semibold text-white">Friendly pastel chat</div>
+          </div>
+          <div className="flex gap-3 text-sm text-slate-300">
+            <Link href="/" className="rounded-full border border-white/10 bg-white/5 px-3 py-1 transition hover:bg-white/10 hover:text-white">
               Chat
             </Link>
-            <Link href="/dashboard" className="rounded-full px-3 py-1 hover:bg-zinc-800 hover:text-white">
+            <Link href="/dashboard" className="rounded-full border border-white/10 bg-white/5 px-3 py-1 transition hover:bg-white/10 hover:text-white">
               Dashboard
             </Link>
           </div>
         </div>
       </nav>
       <div className="max-w-3xl mx-auto h-screen flex flex-col">
-        <main ref={listRef} className="flex-1 overflow-y-auto p-6 space-y-4 bg-zinc-900">
+        <section className="mt-6 rounded-[32px] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-slate-950/30 backdrop-blur-xl text-slate-100">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-sky-300/80">Study companion</p>
+              <h1 className="text-3xl font-semibold text-white">Ask anything, learn faster</h1>
+              <p className="mt-3 max-w-2xl text-slate-300">
+                A pastel chat studio to help you study smarter, keep ideas bright, and make learning feel fun.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full bg-sky-500/15 px-3 py-1 text-sm text-sky-200">Fast help</span>
+              <span className="rounded-full bg-fuchsia-500/15 px-3 py-1 text-sm text-fuchsia-200">Soft style</span>
+              <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-sm text-emerald-200">Easy focus</span>
+            </div>
+          </div>
+        </section>
+        <main ref={listRef} className="chat-main relative flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="chat-decorations pointer-events-none">
+            <span className="chat-shape shape-1" />
+            <span className="chat-shape shape-2" />
+            <span className="chat-shape shape-3" />
+          </div>
+          {showBubble && !bubblePopped ? (
+            <button
+              className="bubble-pop absolute left-8 top-16 z-10 rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-slate-900 shadow-2xl shadow-slate-900/20 transition-transform hover:-translate-y-1"
+              onClick={() => setBubblePopped(true)}
+            >
+              {bubbleText}
+            </button>
+          ) : null}
           {messages.map((m) => (
             <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`${m.role === 'user' ? 'bg-blue-900 text-white rounded-xl rounded-br-none p-3 max-w-[80%]' : 'bg-zinc-800 text-zinc-100 rounded-xl rounded-bl-none p-3 max-w-[80%]'}`}>
-                <div className="whitespace-pre-wrap">{m.content}</div>
+              <div className={`message-bubble ${m.role === 'user' ? 'user rounded-xl rounded-br-none' : 'assistant rounded-xl rounded-bl-none'}`}>
+                <div className="whitespace-pre-wrap break-words">{m.content}</div>
                 {m.role === 'assistant' && m.canSave && m.subject && m.concept ? (
                   <div className="mt-2 flex justify-start">
                     <button
@@ -195,9 +233,9 @@ export default function Home() {
           }}
           className="px-6 py-4 border-t border-zinc-800 bg-zinc-900"
         >
-          <div className="flex gap-3">
+          <div className="relative flex gap-3 items-center">
             <input
-              className="flex-1 bg-zinc-800 text-zinc-100 rounded px-4 py-2 focus:outline-none"
+              className="flex-1 rounded-full border border-white/10 bg-slate-950/90 px-4 py-3 text-zinc-100 shadow-inner shadow-black/20 outline-none transition focus:border-sky-400/70 focus:ring-2 focus:ring-sky-400/20"
               placeholder="Type your study question or message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -205,7 +243,7 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-50"
+              className="rounded-full bg-gradient-to-r from-sky-500 via-violet-500 to-fuchsia-500 px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-sky-500/20 transition hover:-translate-y-0.5 disabled:opacity-50"
               disabled={sending}
             >
               {sending ? 'Sending...' : 'Send'}

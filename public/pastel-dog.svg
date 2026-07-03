@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ede7f6"/>
+      <stop offset="100%" stop-color="#d7f4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="240" rx="32" fill="url(#bg)"/>
+  <ellipse cx="160" cy="172" rx="86" ry="34" fill="#f1d3b3" opacity="0.7"/>
+  <g transform="translate(70,48)">
+    <ellipse cx="90" cy="88" rx="74" ry="68" fill="#f6d1b4"/>
+    <ellipse cx="38" cy="46" rx="22" ry="26" fill="#f6d1b4"/>
+    <ellipse cx="142" cy="46" rx="22" ry="26" fill="#f6d1b4"/>
+    <circle cx="58" cy="70" r="10" fill="#422b16"/>
+    <circle cx="122" cy="70" r="10" fill="#422b16"/>
+    <path d="M72 94 Q90 116 108 94" stroke="#422b16" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M88 104 Q90 123 92 104" fill="#ff7ba2"/>
+    <path d="M70 118 C72 132, 118 132, 120 118" fill="#ff7ba2"/>
+    <path d="M74 122 Q90 138 106 122" fill="#ff2e7a"/>
+    <path d="M60 32 C40 12, 18 22, 24 54 C28 72, 50 66, 60 56" fill="#f6d1b4"/>
+    <path d="M120 30 C140 10, 162 18, 156 50 C152 68, 130 60, 120 52" fill="#f6d1b4"/>
+    <ellipse cx="90" cy="88" rx="20" ry="10" fill="#f1b77f" opacity="0.8"/>
+  </g>
+  <text x="160" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#403f56" opacity="0.85">Cute puppy</text>
+</svg>
